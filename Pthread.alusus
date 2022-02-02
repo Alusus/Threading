@@ -5,18 +5,9 @@ module Pthread {
     class Thread {
     }
     
-    [Yesterday 12:10 AM] سرمد خالد عبد الله ///  تاكد منه ليه كتب هالشي 
+  //  [Yesterday 12:10 AM] سرمد خالد عبد الله ///  تاكد منه ليه كتب هالشي 
     
-    class Mutex {​​​​​​​​​
-    def data: array[Word[8], 40];
-    }​​​​​​​​​
     
-    class Cond {
-    def data: array[Word[8], 48];
-    }
-
-
-
     def Pthread: alias ptr[Thread];
 
     class  SchedParam {
@@ -41,10 +32,15 @@ module Pthread {
         def period: TimeSpec;
     }
     
-    class pthread_mutex_lock{
-       def pthread_mutex_lock : int;    
-       
+    class Mutex {​​​​​​​​​
+    def data: array[Word[8], 40];
+    }​​​​​​​​​
+    
+    class Cond {
+    def data: array[Word[8], 48];
     }
+    
+  
     @expname [pthread_create]
     func createThread (
         pthread: ptr[Pthread], attr: ptr[ThreadAttributes], start_routine: ptr[func (ptr):ptr], arg: ptr
@@ -53,17 +49,19 @@ module Pthread {
     @expname [pthread_join]                    
     func joinThread (pthread: Pthread, retval:ptr[ptr]): Int;
     
+    @expnamme [pthread_cond_signal]
+    func pthread_cond_signal(cond: ptr[Cond]); 
+    
     @expnamme [pthread_cond_wait]
-    func pthread_cond_wait(pthread: ptr[Pthread], ptr[Mutex, Cond],  );
+    func pthread_cond_wait(cond: ptr[Cond], mutex: ptr[Mutex],): Int;
    
     @expnamme [pthread_mutex_lock]
-    func pthread_mutex_lock(pthread: ptr[Pthread], ptr[ptr]);
+    func pthread_mutex_lock(mutex: ptr[Mutex]): Int;
    
     @expnamme [pthread_mutex_unlock]
-    func pthread_mutex_unlock(pthread: ptr[Pthread], ptr[pthread_mutex_lock]);
+    func pthread_mutex_unlock(mutex: ptr[Mutex]);
       
-    @expnamme [pthread_cond_signal]
-    func pthread_cond_signal(pthread: ptr[Pthread], ptr[pthread_mutex_lock], ptr[pthread_cond_wait]);   
+      
   
 }
    

@@ -31,5 +31,9 @@
 
     عرف أنشئ_عملية: لقب createThread؛
     عرف التق_بالعملية: لقب joinThread؛
+    عرف توازي_شرط_الإشارة : لقب pthread_cond_signal؛
+    عرف توازي_شرط_الانتظار: لقب pthread_cond_wait؛
+    عرف توازي_الاغلاق: لقب pthread_mutex_lock؛
+    عرف توازي_الغاء_القفل: لقب pthread_mutex_unlock؛
 }
 

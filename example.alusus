@@ -14,8 +14,26 @@ func test {
     
     joinThread(pthread1, 0);
     joinThread(pthread2, 0);
-}
-
+    
+    //pthread_mutex_louk(pthread1~ptr, "mutex");
+  //  while (!condition){
+   // pthread_cond_wait( "cond", "mutex");   
+    //pthread_mutex_unlouk("mutex");
+    //}
+    
+    //pthread_mutex_lock(pthread2~ptr, "mutext");
+  //  pthread_mutex_signal("cond");
+   // pthread_mutex_unlock("mutex");
+     
+     pthread_mutex_louk(pthread1~ptr, "mutex");
+     pthread_cond_wait(pthread1~ptr, "cond", "mutex");
+      Srl.Console.print("it works!\n");
+     pthread_mutex_unlock(pthread1~ptr, "mutex");
+     
+    pthread_mutex_lock(pthread2~ptr, "mutex");
+    pthread_cond_signal(pthread2~ptr, "cond");  
+    pthread_mutex_unlock(pthread2~ptr, "mutex");
+    
 func printMessage (p: ptr): ptr {
    Srl.Console.print("it works!\n");
    return 0;
