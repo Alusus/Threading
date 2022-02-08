@@ -8,31 +8,35 @@ func test {
    def pthread2: Pthread;
    def iret1: int;
    def iret2: int;
-   
+   def pthread_t: Pthread;
+   def pthread_id: Pthread;
+   def iInteger: Int;
+   def jInteger: Int;
+   def NTHREADS: Int
+   def thread_function: Int;
     createThread(pthread1~ptr, 0, printMessage~ptr, "thread1");
     createThread(pthread2~ptr, 0, printMessage~ptr, "thraed2");
     
     joinThread(pthread1, 0);
     joinThread(pthread2, 0);
     
-    //pthread_mutex_louk(pthread1~ptr, "mutex");
-  //  while (!condition){
-   // pthread_cond_wait( "cond", "mutex");   
-    //pthread_mutex_unlouk("mutex");
-    //}
     
-    //pthread_mutex_lock(pthread2~ptr, "mutext");
-  //  pthread_mutex_signal("cond");
-   // pthread_mutex_unlock("mutex");
+    for iInteger == 0, iInteger <  NTHREADS, iInteger++ {
+    createThread(pthread_id~ptr[iInteger], 0, thread_function, 0);
+    }
+    
+    for jInteger == 0, jInteger < NTHREADS, jInteger++{
+    joinThread( pthread_id[jInteger], 0);
+    }
+    
+    ///void *thread_function(void *ptr) لا اعلم 
+    
+    pthread_mutex_lock(mutex~ptr);
+    pthread_mutex_lock(mutex~ptr);
      
-     pthread_mutex_louk(pthread1~ptr, "mutex");
-     pthread_cond_wait(pthread1~ptr, "cond", "mutex");
-      Srl.Console.print("it works!\n");
-     pthread_mutex_unlock(pthread1~ptr, "mutex");
-     
-    pthread_mutex_lock(pthread2~ptr, "mutex");
-    pthread_cond_signal(pthread2~ptr, "cond");  
-    pthread_mutex_unlock(pthread2~ptr, "mutex");
+    Srl.Console.print("it works!\n");  
+    
+   
     
 func printMessage (p: ptr): ptr {
    Srl.Console.print("it works!\n");
@@ -41,3 +45,4 @@ func printMessage (p: ptr): ptr {
    
 test();
 
+}

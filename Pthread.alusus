@@ -44,17 +44,18 @@ module Pthread {
     @expname [pthread_join]                    
     func joinThread (pthread: Pthread, retval:ptr[ptr]): Int;
     
-    @expnamme [pthread_cond_signal]
+    @expname [pthread_cond_signal]
     func pthread_cond_signal(cond: ptr[Cond]);     
 
-    @expnamme [pthread_cond_wait]
+    @expname [pthread_cond_wait]
     func pthread_cond_wait(cond: ptr[Cond], mutex: ptr[Mutex]): Int;
     
-    @expnamme [pthread_mutex_lock]
+    @expname [pthread_mutex_lock]
     func pthread_mutex_lock(mutex: ptr[Mutex]): Int;
    
-    @expnamme [pthread_mutex_unlock]
+    @expname [pthread_mutex_unlock]
     func pthread_mutex_unlock(mutex: ptr[Mutex]);
+    
 }
 
 
