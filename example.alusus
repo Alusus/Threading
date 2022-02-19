@@ -14,35 +14,20 @@ func test {
    def jInteger: Int;
    def NTHREADS: Int
    def thread_function: Int;
+   
+   
     createThread(pthread1~ptr, 0, printMessage~ptr, "thread1");
     createThread(pthread2~ptr, 0, printMessage~ptr, "thraed2");
     
     joinThread(pthread1, 0);
     joinThread(pthread2, 0);
     
-    
-    for iInteger == 0, iInteger <  NTHREADS, iInteger++ {
-    createThread(pthread_id~ptr[iInteger], 0, thread_function, 0);
-    }
-    
-    for jInteger == 0, jInteger < NTHREADS, jInteger++{
-    joinThread( pthread_id[jInteger], 0);
-    }
-    
-    ///void *thread_function(void *ptr) لا اعلم 
-    
-    pthread_mutex_lock(mutex~ptr);
-    pthread_mutex_lock(mutex~ptr);
-     
-    Srl.Console.print("it works!\n");  
-    
-   
-    
+       
 func printMessage (p: ptr): ptr {
    Srl.Console.print("it works!\n");
    return 0;
 }
-   
+ }
 test();
 
-}
+

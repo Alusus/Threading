@@ -56,6 +56,9 @@ module Pthread {
     @expname [pthread_mutex_unlock]
     func pthread_mutex_unlock(mutex: ptr[Mutex]);
     
+    @expname [pthread_mutex_init]
+    func pthread_mutex_init(mutex: ptr[Mutex]);
+    
 }
 
 
