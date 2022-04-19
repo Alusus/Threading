@@ -1,0 +1,64 @@
+import "Srl/srl";
+import "libpthread.so.0";
+
+module Pthread {
+    class Thread {
+    }
+    def Pthread: alias ptr[Thread];
+
+    class  SchedParam {
+       def schedPriority: Int;
+    };
+
+    class TimeSpec {
+        def tvSec: ArchInt;
+        def tvNsec: Int[64];
+    };
+    
+    class ThreadAttributes {    
+        def flags: Int;
+        def stackSize: Int;
+        def contentionScope: Int;
+        def inheritSched: Int;         
+        def detachState: Int;
+        def sched: Int;
+        def param: SchedParam;
+        def startTime: TimeSpec;
+        def deadLine: TimeSpec;
+        def period: TimeSpec;
+    }
+
+    class Mutex {
+        def data: array[Word[8], 40];
+    }
+    
+    class Cond {
+        def data: array[Word[8], 48];
+    }
+
+    @expname [pthread_create]
+    func createThread (
+        pthread: ptr[Pthread], attr: ptr[ThreadAttributes], start_routine: ptr[func (ptr):ptr], arg: ptr
+    ): Int;
+
+    @expname [pthread_join]                    
+    func joinThread (pthread: Pthread, retval:ptr[ptr]): Int;
+    
+    @expname [pthread_cond_signal]
+    func pthread_cond_signal(cond: ptr[Cond]);     
+
+    @expname [pthread_cond_wait]
+    func pthread_cond_wait(cond: ptr[Cond], mutex: ptr[Mutex]): Int;
+    
+    @expname [pthread_mutex_lock]
+    func pthread_mutex_lock(mutex: ptr[Mutex]): Int;
+   
+    @expname [pthread_mutex_unlock]
+    func pthread_mutex_unlock(mutex: ptr[Mutex]);
+    
+    @expname [pthread_mutex_init]
+    func pthread_mutex_init(mutex: ptr[Mutex]);
+    
+}
+
+

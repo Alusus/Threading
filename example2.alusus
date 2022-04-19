@@ -1,0 +1,31 @@
+import "Srl/Console";
+import "Pthread.alusus";
+def mutex: Pthread.Mutex;
+def counter: Int = 0;
+func test {    
+    use Pthread;
+    // pthread_mutex_init(mutex~ptr, 0); 
+    def NTHREADS: 10;
+    def pthread_id: array[Pthread, NTHREADS];
+    def iInteger: Int;
+    def jInteger: Int;
+    for iInteger = 0, iInteger <  NTHREADS, iInteger++ {
+        createThread(pthread_id(iInteger)~ptr, 0, threadFunction~ptr, 0);
+    }
+    
+    for jInteger = 0, jInteger < NTHREADS, jInteger++ {
+        joinThread(pthread_id(jInteger), 0);
+    }
+    Srl.Console.print("it works!\n");
+}
+    
+func threadFunction (p: ptr): ptr {
+    use Pthread;
+    pthread_mutex_lock(mutex~ptr);
+    Srl.Console.print("Thread number: %d\n", counter);
+    counter++;
+    pthread_mutex_unlock(mutex~ptr);
+    return 0;
+}
+test();
+
