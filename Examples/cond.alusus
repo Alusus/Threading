@@ -1,0 +1,46 @@
+import "Srl/Console";
+import "Srl/Memory";
+import "Apm";
+Apm.importFile("Alusus/Threading");
+
+def mutex: Threading.Mutex;
+def cond: Threading.Cond;
+
+func test {
+    use Threading;
+    initMutex(mutex~ptr, 0);
+    initCond(cond~ptr, 0);
+    def NTHREADS: 10;
+    def threads: array[Thread, NTHREADS];
+    def i: Int;
+    for i = 0, i < NTHREADS, i++ {
+        def threadIndex: ptr[Int] = Srl.Memory.alloc(Int~size)~cast[ptr[Int]];
+        threadIndex~cnt = i;
+        createThread(threads(i)~ptr, 0, threadFunction~ptr, threadIndex);
+    }
+
+    for i = 0, i < NTHREADS, i++ {
+        // Unlock one thread
+        lockMutex(mutex~ptr);
+        signalCond(cond~ptr);
+        unlockMutex(mutex~ptr);
+
+        Srl.Console.print("Main thread\n");
+    }
+
+    for i = 0, i < NTHREADS, i++ {
+        joinThread(threads(i), 0);
+    }
+}
+
+func threadFunction(p: ptr): ptr {
+    use Threading;
+    lockMutex(mutex~ptr);
+    waitCond(cond~ptr, mutex~ptr);
+    Srl.Console.print("Thread number: %d\n", p~cast[ptr[Int]]~cnt);
+    unlockMutex(mutex~ptr);
+    Srl.Memory.free(p);
+    return 0;
+}
+
+test();
