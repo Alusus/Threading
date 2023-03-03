@@ -7,10 +7,14 @@
 
 أضف المكتبة لمشروعك باستخدام مدير الحزم:
 
+<div dir="rtl">
+
 ```
 اشمل "مـحا"؛
 مـحا.اشمل_ملف("Alusus/Threading"، "تـوازي.أسس")؛
 ```
+
+</div>
 ‎
 ```
 import "Apm";
@@ -20,6 +24,9 @@ Apm.importFile("Alusus/Threading");
 ## الدالات
 
 ### أنشئ_مسلكا (createThread)
+
+<div dir="rtl">
+
 ```
     دالة أنشئ_مسلكا(
       مسلك: مؤشر[مـسلك]،
@@ -28,6 +35,9 @@ Apm.importFile("Alusus/Threading");
       معطى: مؤشر
     ): صـحيح؛
 ```
+
+</div>
+
 ```
     func createThread(
       pthread: ptr[Thread],
@@ -53,9 +63,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### التق_بمسلك (joinThread)
+
+<div dir="rtl">
+
 ```
     دالة التق_بمسلك(مسلك: مؤشر[مـسلك]، نتيجة: مؤشر[مؤشر]): صـحيح؛
 ```
+
+</div>
+
 ```
     func joinThread(pthread: ptr[Thread], retval: ptr[ptr]): Int;
 ```
@@ -72,9 +88,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### هيئ_مزامنا (initMutex)
+
+<div dir="rtl">
+
 ```
     دالة هيئ_مزامنا(مزامن: مؤشر[مـزامن]، مزايا: مؤشر[مـزايا_مزامن]): صـحيح؛
 ```
+
+</div>
+
 ```
     func initMutex(mutex: ptr[Mutex], attrs: ptr[MutexAttributes]): Int;
 ```
@@ -92,9 +114,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### اقفل_مزامنا (lockMutex)
+
+<div dir="rtl">
+
 ```
     دالة اقفل_مزامنا(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
+
+</div>
+
 ```
     func lockMutex(mutex: ptr[Mutex]): Int;
 ```
@@ -110,9 +138,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### حاول_قفل_مزامن (tryLockMutex)
+
+<div dir="rtl">
+
 ```
     دالة حاول_قفل_مزامن(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
+
+</div>
+
 ```
     func tryLockMutex(mutex: ptr[Mutex]): Int;
 ```
@@ -128,9 +162,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### افتح_مزامنا (unlockMutex)
+
+<div dir="rtl">
+
 ```
     دالة افتح_مزامنا(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
+
+</div>
+
 ```
     func unlockMutex(mutex: ptr[Mutex]): Int;
 ```
@@ -145,9 +185,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### هيئ_شرطا (initCond)
+
+<div dir="rtl">
+
 ```
     دالة هيئ_شرطا(شرط: مؤشر[شـرط]، مزايا: مؤشر[مـزايا_شرط]): صـحيح؛
 ```
+
+</div>
+
 ```
     func initCond(cond: ptr[Cond], attrs: ptr[CondAttributes]): Int;
 ```
@@ -165,9 +211,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### علم_شرطا (signalCond)
+
+<div dir="rtl">
+
 ```
     دالة علم_شرطا(شرط: مؤشر[شـرط]): صـحيح؛
 ```
+
+</div>
+
 ```
     func signalCond(cond: ptr[Cond]): Int;
 ```
@@ -187,9 +239,15 @@ Apm.importFile("Alusus/Threading");
 تُرجع الدالة 0 في حالة نجاح العملية، ورمز خطئ في حالة فشلها.
 
 ### انتظر_شرطا (waitCond)
+
+<div dir="rtl">
+
 ```
     دالة انتظر_شرطا(شرط: مؤشر[شـرط]، مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
+
+</div>
+
 ```
     func waitCond(cond: ptr[Cond], mutex: ptr[Mutex]): Int;
 ```
@@ -247,6 +305,8 @@ class CondAttributes {
 
 ## مثال
 
+<div dir="rtl">
+
 ```
 اشمل "مـتم/طـرفية"؛
 اشمل "مـحا"؛
@@ -301,8 +361,9 @@ class CondAttributes {
 }
 
 مجموع_كلي();
-
 ```
+
+</div>
 
 ```
 import "Srl/Console";
@@ -361,3 +422,4 @@ func calculateSum(p: ptr): ptr {
 
 totalSum();
 ```
+
