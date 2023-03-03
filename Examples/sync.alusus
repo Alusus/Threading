@@ -12,17 +12,16 @@ func test {
     def pthread_id: array[Thread, NTHREADS];
     def iInteger: Int;
     def jInteger: Int;
-    for iInteger = 0, iInteger <  NTHREADS, iInteger++ {
+    for iInteger = 0, iInteger < NTHREADS, iInteger++ {
         createThread(pthread_id(iInteger)~ptr, 0, threadFunction~ptr, 0);
     }
 
     for jInteger = 0, jInteger < NTHREADS, jInteger++ {
         joinThread(pthread_id(jInteger), 0);
     }
-    Srl.Console.print("it works!\n");
 }
 
-func threadFunction (p: ptr): ptr {
+func threadFunction(p: ptr): ptr {
     use Threading;
     lockMutex(mutex~ptr);
     Srl.Console.print("Thread number: %d\n", counter);
@@ -32,4 +31,3 @@ func threadFunction (p: ptr): ptr {
 }
 
 test();
-
