@@ -12,6 +12,7 @@ import "Apm";
 Apm.importFile("Alusus/Threading");
 ```
 
+
 ## Functions
 
 ### createThread
@@ -163,7 +164,10 @@ Return Value:
 
 Returns 0 on success, an error code otherwise.
 
+
 ## Types
+
+### ThreadAttributes
 
 ```
 class ThreadAttributes {
@@ -178,27 +182,89 @@ class ThreadAttributes {
     def deadLine: TimeSpec;
     def period: TimeSpec;
 }
+```
 
+### SchedParam
+
+```
 class SchedParam {
     def schedPriority: Int;
 }
+```
 
+### TimeSpec
+
+```
 class TimeSpec {
     def tvSec: ArchInt;
     def tvNsec: Int[64];
 }
+```
 
+### Mutex
+
+Used for synchronizing threads by allowing threads to request locking the mutex and release the
+lock after the thread is done with the synchronized work.
+
+* `init`: Initializes the mutex. This must be called before the mutex is usable. It has two forms:
+
+```
+handler this.init();
+handler this.init(attr: ref[MutexAttributes]);
+```
+
+* `lock`: Locks the mutex. This will freeze the thread until the lock is available.
+
+* `unlock`: Unlocks the mutex allowing the OS to release another waiting thread.
+
+### MutexAttributes
+
+```
 class MutexAttributes {
     def pshared: Int = 0;
     def kind: Int = 0;
     def protocol: Int = 0;
     def robustness: Int = 0;
 }
+```
 
+### CondAttributes
+
+```
 class CondAttributes {
     def dummy: Int = 0;
 }
 ```
+
+### ThreadLocal
+
+Type template used to define thread local variables, i.e. variables that are global within a
+thread but aren't shared between threads.
+
+* `initializer`: A closure used to initialize the variable. It's called automatically when the
+  variable is created within a thread, i.e. it's called for each thread in which the variable
+  is created. If this closure isn't set the variable will only be initialized using the
+  built-in constructor. This `initializer` can be set by passing it to the constructor
+  of `ThreadLocal` or by setting the `initializer` member value directly.
+
+* `value`: Used to access the actual value. Accessing this attribute for the first time within
+  a thread will result in allocating and initializing the variable before returning a reference
+  to it.
+
+Following is an example usage:
+
+```
+def var: Threading.ThreadLocal[MyType](closure (val: ref[A]) {
+    val.i = Math.random();
+});
+
+// Later from within a thread:
+Console.print(var.value.i);
+```
+
+In this example `var` is declared to contain a value of type `MyType`. When the variable of type
+`MyType` is created within a thread its `i` attribute will be set to a random value.
+
 
 ## Example
 
@@ -214,7 +280,7 @@ def counter: Int = 0;
 func totalSum {
     use Threading;
 
-    initMutex(mutex~ptr, 0);
+    mutex.init();
 
     def NTHREADS: 10;
     def threads: array[Thread, NTHREADS];
@@ -242,17 +308,17 @@ func calculateSum(p: ptr): ptr {
     // and so on for the rest.
 
     // Sync with other threads before accessing the global var.
-    lockMutex(mutex~ptr);
+    mutex.lock();
     def st: Int = counter*100;
     counter++;
-    unlockMutex(mutex~ptr);
+    mutex.unlock();
 
     def i: Int;
     for i = st, i < st + 100, i++ {
         // Sync with other threads before accessing the global var.
-        lockMutex(mutex~ptr);
+        mutex.lock();
         sum += i;
-        unlockMutex(mutex~ptr);
+        mutex.unlock();
     }
     return 0;
 }
