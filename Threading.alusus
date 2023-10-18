@@ -1,4 +1,5 @@
 import "Srl/srl";
+import "closure";
 import "libpthread.so.0";
 
 module Threading {
@@ -48,6 +49,45 @@ module Threading {
         def dummy: Int = 0;
     }
 
+    def Key: alias Int;
+
+    class ThreadLocal [Type: type] {
+        def key: Key;
+        def initializer: closure(val: ref[Type]);
+
+        createKey(key~ptr, destruct~ptr);
+
+        handler this~init() {}
+        handler this~init(initializer: closure(ref[Type])) {
+            this.initializer = initializer;
+        }
+
+        func destruct(val: ptr) {
+            val~cast[ptr[Type]]~cnt~terminate();
+            Memory.free(val);
+        }
+
+        handler this.getValue(): ref[Type] {
+            def val: ptr = getSpecific(this.key);
+            if val == 0 {
+                val = Memory.alloc(Type~size);
+                val~cast[ptr[Type]]~cnt~init();
+                if not this.initializer.isNull() this.initializer(val~cast[ptr[Type]]~cnt);
+                setSpecific(this.key, val);
+            }
+            return val~cast[ptr[Type]]~cnt;
+        }
+
+        handler this.value: ref[Type] {
+            return this.getValue();
+        }
+
+        handler this.value = Type {
+            this.getValue() = value;
+            return value;
+        }
+    }
+
     @expname[pthread_create]
     func createThread(
         pthread: ptr[Thread], attr: ptr[ThreadAttributes], startRoutine: ptr[func (ptr): ptr], arg: ptr
@@ -76,5 +116,13 @@ module Threading {
 
     @expname[pthread_cond_wait]
     func waitCond(cond: ptr[Cond], mutex: ptr[Mutex]): Int;
-}
 
+    @expname[pthread_key_create]
+    func createKey(key: ptr[Key], destructor: ptr[func(ptr)]): Int;
+
+    @expname[pthread_getspecific]
+    func getSpecific(key: Key): ptr;
+
+    @expname[pthread_setspecific]
+    func setSpecific(key: Key, val: ptr): Int;
+}

@@ -43,6 +43,12 @@
 
     عرف مـزايا_شرط: لقب CondAttributes؛
 
+    عرف مـحلي_لمسلك: لقب ThreadLocal؛
+    @دمج صنف مـحلي_لمسلك {
+        عرف مهيئ: لقب initializer؛
+        عرف القيمة: لقب value؛
+    }
+
     عرف أنشئ_مسلكا: لقب createThread؛
     عرف التق_بمسلك: لقب joinThread؛
     عرف هيئ_مزامنا: لقب  initMutex؛
