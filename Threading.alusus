@@ -32,6 +32,18 @@ module Threading {
 
     class Mutex {
         def data: array[Word[8], 40];
+        handler this.init() {
+            initMutex(this~ptr, 0);
+        }
+        handler this.init(attrs: ref[MutexAttributes]) {
+            initMutex(this~ptr, attrs~ptr);
+        }
+        handler this.lock() {
+            lockMutex(this~ptr);
+        }
+        handler this.unlock() {
+            unlockMutex(this~ptr);
+        }
     }
 
     class MutexAttributes {
