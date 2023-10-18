@@ -7,7 +7,7 @@ def counter: Int = 0;
 
 func test {
     use Threading;
-    initMutex(mutex~ptr, 0);
+    mutex.init();
     def NTHREADS: 10;
     def pthread_id: array[Thread, NTHREADS];
     def iInteger: Int;
@@ -23,10 +23,10 @@ func test {
 
 func threadFunction(p: ptr): ptr {
     use Threading;
-    lockMutex(mutex~ptr);
+    mutex.lock();
     Srl.Console.print("Thread number: %d\n", counter);
     counter++;
-    unlockMutex(mutex~ptr);
+    mutex.unlock();
     return 0;
 }
 
