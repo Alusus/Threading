@@ -1,5 +1,5 @@
 # Threading
-[[عربي]](readme.ar.md)
+[[عربي]](README.ar.md)
 
 Provides threading and thread synchronization functionality.
 

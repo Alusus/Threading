@@ -1,5 +1,5 @@
 # تـوازي (Threading)
-[[English]](readme.md)
+[[English]](README.md)
 
 مكتبة لإنشاء المسالك (threads) وتمكين المزامنة (synchronization) بينها في لغة الأسس.
 
