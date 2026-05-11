@@ -1,7 +1,7 @@
 import "Srl/Console";
 import "Srl/System";
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 use Srl;
 
 func test {

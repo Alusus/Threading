@@ -11,14 +11,14 @@
 
 ```
 اشمل "مـحا"؛
-مـحا.اشمل_ملف("Alusus/Threading"، "تـوازي.أسس")؛
+مـحا.اشمل_حزمة("Alusus/Threading@0.1"، "تـوازي.أسس")؛
 ```
 
 </div>
 
 ```
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 ```
 
 
@@ -438,7 +438,7 @@ Console.print(var.value.i);
 ```
 اشمل "مـتم/طـرفية"؛
 اشمل "مـحا"؛
-مـحا.اشمل_ملف("Alusus/Threading"، "تـوازي.أسس")؛
+مـحا.اشمل_حزمة("Alusus/Threading@0.1"، "تـوازي.أسس")؛
 
 عرف مزامن: تـوازي.مـزامن؛
 عرف مجموع: صحيح = 0؛
@@ -497,7 +497,7 @@ Console.print(var.value.i);
 ```
 import "Srl/Console";
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 
 def mutex: Threading.Mutex;
 def sum: Int = 0;

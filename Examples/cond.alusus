@@ -1,7 +1,7 @@
 import "Srl/Console";
 import "Srl/Memory";
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 
 def mutex: Threading.Mutex;
 def cond: Threading.Cond;

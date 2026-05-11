@@ -2,7 +2,7 @@ import "Srl/Console";
 import "Srl/System";
 import "Srl/Math";
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 use Srl;
 
 class A {

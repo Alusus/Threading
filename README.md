@@ -9,7 +9,7 @@ Use the following lines:
 
 ```
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 ```
 
 
@@ -271,7 +271,7 @@ In this example `var` is declared to contain a value of type `MyType`. When the 
 ```
 import "Srl/Console";
 import "Apm";
-Apm.importFile("Alusus/Threading");
+Apm.importPackage("Alusus/Threading@0.1");
 
 def mutex: Threading.Mutex;
 def sum: Int = 0;
