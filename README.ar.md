@@ -1,32 +1,33 @@
 # تـوازي (Threading)
 [[English]](README.md)
 
+
+<div dir=rtl>
+
 مكتبة لإنشاء المسالك (threads) وتمكين المزامنة (synchronization) بينها في لغة الأسس.
 
 ## إضافة المكتبة للمشروع
 
 أضف المكتبة لمشروعك باستخدام مدير الحزم:
 
-<div dir="rtl">
-
 ```
 اشمل "مـحا"؛
 مـحا.اشمل_حزمة("Alusus/Threading@0.1"، "تـوازي.أسس")؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 import "Apm";
 Apm.importPackage("Alusus/Threading@0.1");
 ```
 
+</div>
+
 
 ## الدالات
 
 ### أنشئ_مسلكا (createThread)
-
-<div dir="rtl">
 
 ```
     دالة أنشئ_مسلكا(
@@ -37,7 +38,7 @@ Apm.importPackage("Alusus/Threading@0.1");
     ): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func createThread(
@@ -47,7 +48,10 @@ Apm.importPackage("Alusus/Threading@0.1");
       arg: ptr
     ): Int;
 ```
-دالة  لإنشاء مسلك. تطابق هذه الدالة دالة `pthread_create` من Posix.
+
+</div>
+
+دالة لإنشاء مسلك. تطابق هذه الدالة دالة `pthread_create` من Posix.
 
 المعطيات:
 
@@ -65,17 +69,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### التق_بمسلك (joinThread)
 
-<div dir="rtl">
-
 ```
     دالة التق_بمسلك(مسلك: مؤشر[مـسلك]، نتيجة: مؤشر[مؤشر]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func joinThread(pthread: ptr[Thread], retval: ptr[ptr]): Int;
 ```
+
+</div>
+
 تنتظر مسلكا حتى يكتمل تنفيذه وتستلم منه القيمة المرجعة من دالة المسلك. هذه الدالة تطابق دالة `pthread_join` من Posix.
 
 المعطيات:
@@ -90,17 +95,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### هيئ_مزامنا (initMutex)
 
-<div dir="rtl">
-
 ```
     دالة هيئ_مزامنا(مزامن: مؤشر[مـزامن]، مزايا: مؤشر[مـزايا_مزامن]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func initMutex(mutex: ptr[Mutex], attrs: ptr[MutexAttributes]): Int;
 ```
+
+</div>
+
 تهيئ مزامنا. يجب تهيئة المزامن باستخدام هذه الدالة قبل التمكن من استخدامه.
 هذه الدالة تطابق دالة `pthread_mutex_init` من Posix.
 
@@ -116,17 +122,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### اقفل_مزامنا (lockMutex)
 
-<div dir="rtl">
-
 ```
     دالة اقفل_مزامنا(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func lockMutex(mutex: ptr[Mutex]): Int;
 ```
+
+</div>
+
 تقفل المزامن وتحجزه للمسلك الحالي. إن كان المزامن محجوزا من قبل مسلك آخر فسيُجمد هذا المسلك حتى يتم تحرير المزامن من قبل المسلك الآخر.
 هذه الدالة تطابق دالة `pthread_mutex_lock` من Posix.
 
@@ -140,17 +147,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### حاول_قفل_مزامن (tryLockMutex)
 
-<div dir="rtl">
-
 ```
     دالة حاول_قفل_مزامن(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func tryLockMutex(mutex: ptr[Mutex]): Int;
 ```
+
+</div>
+
 تقفل المزامن إذا كان حرًا، وتُرجع رمز خطأ مباشرة دون انتظار إذا كان المزامن محجوزًا من قبل مسلك آخر.
 هذه الدالة تطابق دالة `pthread_mutex_trylock` من Posix.
 
@@ -164,17 +172,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### افتح_مزامنا (unlockMutex)
 
-<div dir="rtl">
-
 ```
     دالة افتح_مزامنا(مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func unlockMutex(mutex: ptr[Mutex]): Int;
 ```
+
+</div>
+
 تحرر مزامنًا وتجعله متوفرًا للمسالك الأخرى. هذه الدالة تطابق دالة `pthread_mutex_unlock` من Posix.
 
 المعطيات:
@@ -187,23 +196,24 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### هيئ_شرطا (initCond)
 
-<div dir="rtl">
-
 ```
     دالة هيئ_شرطا(شرط: مؤشر[شـرط]، مزايا: مؤشر[مـزايا_شرط]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func initCond(cond: ptr[Cond], attrs: ptr[CondAttributes]): Int;
 ```
+
+</div>
+
 يهيئ كائنا من صنف `شـرط`. يجب تهيئة الشرط بهذه الدالة قبل استخدامه.
 هذه الدالة تطابق دالة `pthread_cond_init` من Posix.
 
 المعطيات:
 
-`شرد`: مؤشر إلى الشرط المراد تهيئته.
+`شرط`: مؤشر إلى الشرط المراد تهيئته.
 
 `مزايا`: المزايا المطلوبة للشرط. تمرير 0 يؤدي إلى تهيئته بالمزايا الافتراضية.
 
@@ -213,17 +223,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### علم_شرطا (signalCond)
 
-<div dir="rtl">
-
 ```
     دالة علم_شرطا(شرط: مؤشر[شـرط]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func signalCond(cond: ptr[Cond]): Int;
 ```
+
+</div>
+
 يُرسل إشارة بأن الشرط المعني قد تحقق. يؤدي ذلك لتحرير مسلك واحد من المسالك المنتظرة لهذا الشرط. إن
 وُجد عدة مسالك تنتظر الشرط فسيُحرر واحد منها فقط لكل استدعاء لهذه الدالة. قبل استدعاء هذه الدالة
 يجب على المسلك قفل مزامن (نفس المزامن المستخدم من قبل المسالك التي تستدعي `انتظر_شرطا` `waitCond`) ويجب تحرير
@@ -241,17 +252,18 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### انتظر_شرطا (waitCond)
 
-<div dir="rtl">
-
 ```
     دالة انتظر_شرطا(شرط: مؤشر[شـرط]، مزامن: مؤشر[مـزامن]): صـحيح؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
     func waitCond(cond: ptr[Cond], mutex: ptr[Mutex]): Int;
 ```
+
+</div>
+
 تنتظر تحقق شرط. تستقبل هذه الدالة مزامنا بالإضافة إلى الشرط المعني وتتطلب أن يكون المزامن مقفلًا
 قبل استداءها. تعمل الدالة بشكل لا انشطاري (atomic) على تجميد المسلك وتحرير المزامن. عند تحقق
 الشرط تقوم الدالة بشكل لا انشطاري بقفل المزامن مجددًا وتحرير المسلك.
@@ -272,8 +284,6 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ### مـزايا_مسلك (ThreadAttributes)
 
-<div dir=rtl>
-
 ```
 صنف مـزايا_مسلك {
     عرف أعلام: صـحيح؛
@@ -289,7 +299,7 @@ Apm.importPackage("Alusus/Threading@0.1");
 }
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 class ThreadAttributes {
@@ -306,17 +316,157 @@ class ThreadAttributes {
 }
 ```
 
-### مـعامل_جدولة (SchedParam)
+</div>
 
-<div dir=rtl>
+#### أعلام (flags)
+
+```
+عرف أعلام: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def flags: Int;
+```
+
+</div>
+
+#### حجم_المكدس (stackSize)
+
+```
+عرف حجم_المكدس: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def stackSize: Int;
+```
+
+</div>
+
+#### مجال_التنافس (contentionScope)
+
+```
+عرف مجال_التنافس: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def contentionScope: Int;
+```
+
+</div>
+
+#### توريث_الجدولة (inheritSched)
+
+```
+عرف توريث_الجدولة: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def inheritSched: Int;
+```
+
+</div>
+
+#### فصل_الحالة (detachState)
+
+```
+عرف فصل_الحالة: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def detachState: Int;
+```
+
+</div>
+
+#### جدولة (sched)
+
+```
+عرف جدولة: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def sched: Int;
+```
+
+</div>
+
+#### معلمة (param)
+
+```
+عرف معلمة: مـعامل_جدولة؛
+```
+
+<div dir=ltr>
+
+```
+def param: SchedParam;
+```
+
+</div>
+
+#### وقت_البداية (startTime)
+
+```
+عرف وقت_البداية: تـفصيل_زمني؛
+```
+
+<div dir=ltr>
+
+```
+def startTime: TimeSpec;
+```
+
+</div>
+
+#### حد_اقصى (deadLine)
+
+```
+عرف حد_اقصى: تـفصيل_زمني؛
+```
+
+<div dir=ltr>
+
+```
+def deadLine: TimeSpec;
+```
+
+</div>
+
+#### فترة (period)
+
+```
+عرف فترة: تـفصيل_زمني؛
+```
+
+<div dir=ltr>
+
+```
+def period: TimeSpec;
+```
+
+</div>
+
+### مـعامل_جدولة (SchedParam)
 
 ```
 صنف مـعامل_جدولة {
     عرف أولوية_الجدولة: صـحيح؛
-}؛
+}
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 class SchedParam {
@@ -324,9 +474,23 @@ class SchedParam {
 }
 ```
 
-### تـفصيل_زمني (TimeSpec)
+</div>
 
-<div dir=rtl>
+#### أولوية_الجدولة (schedPriority)
+
+```
+عرف أولوية_الجدولة: صـحيح؛
+```
+
+<div dir=ltr>
+
+```
+def schedPriority: Int;
+```
+
+</div>
+
+### تـفصيل_زمني (TimeSpec)
 
 ```
 صنف تـفصيل_زمني {
@@ -335,7 +499,7 @@ class SchedParam {
 }
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 class TimeSpec {
@@ -344,33 +508,70 @@ class TimeSpec {
 }
 ```
 
+</div>
+
+#### مدة_ثواني (tvSec)
+
+```
+عرف مدة_ثواني: صـحيح_متكيف؛
+```
+
+<div dir=ltr>
+
+```
+def tvSec: ArchInt;
+```
+
+</div>
+
+#### مدة_نانو (tvNsec)
+
+```
+عرف مدة_نانو: صـحيح[64]؛
+```
+
+<div dir=ltr>
+
+```
+def tvNsec: Int[64];
+```
+
+</div>
+
 ### مـزامن (Mutex)
 
 يستخدم للمزامنة بين المسالك المختلفة ويتم ذلك بطلب المسلك قفل المزامن، ومن ثم بعد الحصول على
 القفل يقوم بالعمل المراد ثم يحرر القفل ليتسنى لمسلك آخر قفله.
 
-* `هيئ`: دالة لتهيئة المزامن. يجب استدعاء هذه الدالة قبل استخدام المزامن. لها صيغتان:
-
-<div dir=rtl>
+#### هيئ (init)
 
 ```
 عملية هذا.هيئ()؛
 عملية هذا.هيئ(مزايا: سند[مـزايا_مزامن])؛
 ```
 
+<div dir=ltr>
+
+```
+handler this.init()
+handler this.init(attr: ref[MutexAttributes])
+```
+
 </div>
 
-```
-handler this.init();
-handler this.init(attr: ref[MutexAttributes]);
-```
+دالة لتهيئة المزامن. يجب استدعاء هذه الدالة قبل استخدام المزامن.
 
-* `اقفل`: تستخدم لقفل المزامن ولا تستلم أي معطيات. عند استدعاء هذه الدالة يُلبث المسلك لحين تحرر هذا
-  المزامن من أي قفل.
+#### اقفل (lock)
 
-* `افتح`: تفتح القفل ما يتيح لنظام التشغيل تحرير أحد المسالك المُنتظِرة لهذا القفل.
+تستخدم لقفل المزامن ولا تستلم أي معطيات. عند استدعاء هذه الدالة يُلبث المسلك لحين تحرر هذا المزامن من أي قفل.
+
+#### افتح (unlock)
+
+تفتح القفل ما يتيح لنظام التشغيل تحرير أحد المسالك المُنتظِرة لهذا القفل.
 
 ### مـزايا_مزامن (MutexAttributes)
+
+<div dir=ltr>
 
 ```
 class MutexAttributes {
@@ -381,13 +582,69 @@ class MutexAttributes {
 }
 ```
 
+</div>
+
+#### pshared
+
+<div dir=ltr>
+
+```
+def pshared: Int;
+```
+
+</div>
+
+#### kind
+
+<div dir=ltr>
+
+```
+def kind: Int;
+```
+
+</div>
+
+#### protocol
+
+<div dir=ltr>
+
+```
+def protocol: Int;
+```
+
+</div>
+
+#### robustness
+
+<div dir=ltr>
+
+```
+def robustness: Int;
+```
+
+</div>
+
 ### مـزايا_شرط (CondAttributes)
+
+<div dir=ltr>
 
 ```
 class CondAttributes {
     def dummy: Int = 0;
 }
 ```
+
+</div>
+
+#### dummy
+
+<div dir=ltr>
+
+```
+def dummy: Int;
+```
+
+</div>
 
 ### مـحلي_لمسلك (ThreadLocal)
 
@@ -405,8 +662,6 @@ class CondAttributes {
 
 المثال التالي يوضح استخدام هذا القالب:
 
-<div dir=rtl>
-
 ```
 عرف متغير: تـوازي.مـحلي_لمسلك[صـنفي](مغلفة(م: سند[صـنفي]) {
     م.ع = ريـاضيات.عشوائي()؛
@@ -416,7 +671,7 @@ class CondAttributes {
 طـرفية.اطبع(متغير.القيمة.ع)؛
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 def var: Threading.ThreadLocal[MyType](closure (val: ref[A]) {
@@ -427,13 +682,13 @@ def var: Threading.ThreadLocal[MyType](closure (val: ref[A]) {
 Console.print(var.value.i);
 ```
 
+</div>
+
 في هذا المثال نعرف `متغير` (`var`) ليحتوي على قيمة من صنف `صـنفي` (`MyType`) وعند إنشاء المتغير
 ذو الصنف `صـنفي` ضمن مسلك معين تُحدد قيمة الخصلة `ع` (`i`) منه بقيمة عشوائية.
 
 
 ## مثال
-
-<div dir="rtl">
 
 ```
 اشمل "مـتم/طـرفية"؛
@@ -492,7 +747,7 @@ Console.print(var.value.i);
 مجموع_كلي();
 ```
 
-</div>
+<div dir=ltr>
 
 ```
 import "Srl/Console";
@@ -552,9 +807,12 @@ func calculateSum(p: ptr): ptr {
 totalSum();
 ```
 
+</div>
+
 ---
 
 ## الرخصة
 
 هذا المشروع مرخص بموجب رخصة غنو العمومية الصغرى الإصدار 3.0 (LGPL-3.0). راجع ملفات `COPYING` و `COPYING.LESSER` للحصول على التفاصيل.
 
+</div>

@@ -108,29 +108,118 @@ Waits for a condition to be met. This takes a mutex in addition to the condition
 
 ## Types
 
-
-
 ### ThreadAttributes
 
-* `flags` (`Int`)
-* `stackSize` (`Int`)
-* `contentionScope` (`Int`)
-* `inheritSched` (`Int`)
-* `detachState` (`Int`)
-* `sched` (`Int`)
-* `param` (`SchedParam`)
-* `startTime` (`TimeSpec`)
-* `deadLine` (`TimeSpec`)
-* `period` (`TimeSpec`)
+```
+class ThreadAttributes {
+    def flags: Int;
+    def stackSize: Int;
+    def contentionScope: Int;
+    def inheritSched: Int;
+    def detachState: Int;
+    def sched: Int;
+    def param: SchedParam;
+    def startTime: TimeSpec;
+    def deadLine: TimeSpec;
+    def period: TimeSpec;
+}
+```
+
+#### flags
+
+```
+def flags: Int;
+```
+
+#### stackSize
+
+```
+def stackSize: Int;
+```
+
+#### contentionScope
+
+```
+def contentionScope: Int;
+```
+
+#### inheritSched
+
+```
+def inheritSched: Int;
+```
+
+#### detachState
+
+```
+def detachState: Int;
+```
+
+#### sched
+
+```
+def sched: Int;
+```
+
+#### param
+
+```
+def param: SchedParam;
+```
+
+#### startTime
+
+```
+def startTime: TimeSpec;
+```
+
+#### deadLine
+
+```
+def deadLine: TimeSpec;
+```
+
+#### period
+
+```
+def period: TimeSpec;
+```
 
 ### SchedParam
 
-* `schedPriority` (`Int`)
+```
+class SchedParam {
+    def schedPriority: Int;
+}
+```
+
+#### schedPriority
+
+```
+def schedPriority: Int;
+```
 
 ### TimeSpec
 
-* `tvSec` (`ArchInt`)
-* `tvNsec` (`Int[64]`)
+```
+class TimeSpec {
+    def tvSec: ArchInt;
+    def tvNsec: Int[64];
+}
+```
+
+#### tvSec
+
+```
+def tvSec: ArchInt;
+```
+
+#### tvNsec
+
+```
+def tvNsec: Int[64];
+```
+
 
 ### Mutex
 
@@ -155,14 +244,54 @@ Unlocks the mutex allowing the OS to release another waiting thread.
 
 ### MutexAttributes
 
-* `pshared` (`Int`)
-* `kind` (`Int`)
-* `protocol` (`Int`)
-* `robustness` (`Int`)
+```
+class MutexAttributes {
+    def pshared: Int = 0;
+    def kind: Int = 0;
+    def protocol: Int = 0;
+    def robustness: Int = 0;
+}
+```
+
+#### pshared
+
+```
+def pshared: Int;
+```
+
+#### kind
+
+```
+def kind: Int;
+```
+
+#### protocol
+
+```
+def protocol: Int;
+```
+
+#### robustness
+
+```
+def robustness: Int;
+```
 
 ### CondAttributes
 
-* `dummy` (`Int`)
+```
+class CondAttributes {
+    def dummy: Int = 0;
+}
+```
+
+#### dummy
+
+```
+def dummy: Int;
+```
+
+
 
 ### ThreadLocal
 
