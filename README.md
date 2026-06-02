@@ -1,11 +1,10 @@
 # Threading
+
 [[عربي]](README.ar.md)
 
 Provides threading and thread synchronization functionality.
 
 ## Adding to the Project
-
-
 
 Use the following lines:
 
@@ -16,13 +15,17 @@ Apm.importPackage("Alusus/Threading@0.1");
 
 ## Functions
 
-
-
 ### createThread
 
 ```
-func createThread(pthread: ptr[Thread], attr: ptr[ThreadAttributes], startRoutine: ptr[func (ptr): ptr], arg: ptr): Int
+    func createThread(
+      pthread: ptr[Thread],
+      attr: ptr[ThreadAttributes],
+      startRoutine: ptr[func (ptr): ptr],
+      arg: ptr
+    ): Int;
 ```
+
 Create a thread. This function is equivalent to Posix `pthread_create`. Returns 0 on success, an error code otherwise.
 
 * `pthread`: A pointer to a variable of type Thread, in which the result is stored.
@@ -35,6 +38,7 @@ Create a thread. This function is equivalent to Posix `pthread_create`. Returns 
 ```
 func joinThread(pthread: ptr[Thread], retval: ptr[ptr]): Int
 ```
+
 Waits for a thread to finish execution. This function is equivalent to Posix `pthread_join`. Returns 0 on success, an error code otherwise.
 
 * `pthread`: A pointer to the thread to wait for.
@@ -45,6 +49,7 @@ Waits for a thread to finish execution. This function is equivalent to Posix `pt
 ```
 func initMutex(mutex: ptr[Mutex], attrs: ptr[MutexAttributes]): Int
 ```
+
 Initializes a mutex lock. A mutex must be initialized by this function before it can be used. This function is equivalent to Posix `pthread_mutex_init`. Returns 0 on success, an error code otherwise.
 
 * `mutex`: A pointer to the Mutex object.
@@ -55,6 +60,7 @@ Initializes a mutex lock. A mutex must be initialized by this function before it
 ```
 func lockMutex(mutex: ptr[Mutex]): Int
 ```
+
 Locks the mutex object. If the mutex is locked by another thread the current thread will be paused until the mutex is available. This function is equivalent to Posix `pthread_mutex_lock`. Returns 0 on success, an error code otherwise.
 
 * `mutex`: A pointer to the Mutex object.
@@ -64,6 +70,7 @@ Locks the mutex object. If the mutex is locked by another thread the current thr
 ```
 func tryLockMutex(mutex: ptr[Mutex]): Int
 ```
+
 Locks the mutex object. If the mutex is locked by another thread the function returns immediately with an error code. This function is equivalent to Posix `pthread_mutex_trylock`. Returns 0 on success, an error code otherwise.
 
 * `mutex`: A pointer to the Mutex object.
@@ -73,6 +80,7 @@ Locks the mutex object. If the mutex is locked by another thread the function re
 ```
 func unlockMutex(mutex: ptr[Mutex]): Int
 ```
+
 Unlocks a mutex. This function is equivalent to Posix `pthread_mutex_unlock`. Returns 0 on success, an error code otherwise.
 
 * `mutex`: A pointer to the Mutex object.
@@ -82,6 +90,7 @@ Unlocks a mutex. This function is equivalent to Posix `pthread_mutex_unlock`. Re
 ```
 func initCond(cond: ptr[Cond], attrs: ptr[CondAttributes]): Int
 ```
+
 Initializes a condition object. A condition must be initialized by this function before it can be used. This function is equivalent to Posix `pthread_cond_init`. Returns 0 on success, an error code otherwise.
 
 * `cond`: A pointer to the Cond object.
@@ -92,6 +101,7 @@ Initializes a condition object. A condition must be initialized by this function
 ```
 func signalCond(cond: ptr[Cond]): Int
 ```
+
 Sends a signal that a condition is met. This will unlock one thread that is waiting on this condition. If multiple threads are waiting for the same condition only one of them will be released per call. Before calling this function the calling thread must first lock a mutex (the same mutex used by the thread in `waitCond`) and must release the mutex after the call. The thread calling `waitCond` will only be released after the mutex is released since the `waitCond` will attempt to lock the mutex before returning. This is equivalent to Posix `pthread_cond_signal`. Returns 0 on success, an error code otherwise.
 
 * `cond`: A pointer to the condition object to signal.
@@ -101,6 +111,7 @@ Sends a signal that a condition is met. This will unlock one thread that is wait
 ```
 func waitCond(cond: ptr[Cond], mutex: ptr[Mutex]): Int
 ```
+
 Waits for a condition to be met. This takes a mutex in addition to the condition to wait for, and it requires that the mutex is locked before the call. The function will atomically block the thread and release the mutex. When the condition is signaled the function will atomically re-lock the mutex and release the calling thread. This function is equivalent to Posix `pthread_cond_wait`. Returns 0 on success, an error code otherwise.
 
 * `cond`: A pointer to the Cond object to wait on.
@@ -220,8 +231,16 @@ def tvSec: ArchInt;
 def tvNsec: Int[64];
 ```
 
-
 ### Mutex
+
+```
+class Mutex {
+    handler this.init();
+    handler this.init(attrs: ref[MutexAttributes]);
+    handler this.lock();
+    handler this.unlock()
+}
+```
 
 Used for synchronizing threads by allowing threads to request locking the mutex and release the
 lock after the thread is done with the synchronized work.
@@ -232,13 +251,22 @@ lock after the thread is done with the synchronized work.
 handler this.init()
 handler this.init(attr: ref[MutexAttributes])
 ```
+
 Initializes the mutex. This must be called before the mutex is usable.
 
 #### lock
 
+```
+handler this.lock();
+```
+
 Locks the mutex. This will freeze the thread until the lock is available.
 
 #### unlock
+
+```
+handler this.unlock();
+```
 
 Unlocks the mutex allowing the OS to release another waiting thread.
 
@@ -291,8 +319,6 @@ class CondAttributes {
 def dummy: Int;
 ```
 
-
-
 ### ThreadLocal
 
 Type template used to define thread local variables, i.e. variables that are global within a
@@ -322,8 +348,6 @@ In this example `var` is declared to contain a value of type `MyType`. When the 
 `MyType` is created within a thread its `i` attribute will be set to a random value.
 
 ## Example
-
-
 
 ```
 import "Srl/Console";
@@ -384,7 +408,5 @@ totalSum();
 ```
 
 ## License
-
-
 
 This project is licensed under the GNU Lesser General Public License v3.0 (LGPL-3.0). See the `COPYING` and `COPYING.LESSER` files for details.
